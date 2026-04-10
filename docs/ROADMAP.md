@@ -14,6 +14,24 @@ Créer une solution simple à exploiter au quotidien, robuste sur Raspberry Pi, 
 
 ---
 
+## Phase 0 — Alignement architecture (ajoutée le 2026-04-10)
+
+### Objectifs
+- Éliminer l’ambiguïté entre les deux approches présentes dans le dépôt (Next.js et WordPress).
+
+### Livrables
+- Décision d’architecture formalisée :
+  - Option A : WordPress (plugin réservation/CRM/facturation)
+  - Option B : Next.js + services dédiés
+- Matrice de décision (coût, maintenance, performance Pi, évolutivité)
+- Plan de migration de la piste non retenue (archivage ou suppression)
+
+### Critères d’acceptation
+- Une seule pile applicative est déclarée “source of truth” dans la documentation
+- Le dépôt ne contient plus de confusion sur le chemin de livraison MVP
+
+---
+
 ## Phase 1 — Infrastructure (Semaine 1 à 2)
 
 ### Objectifs
@@ -108,6 +126,7 @@ Créer une solution simple à exploiter au quotidien, robuste sur Raspberry Pi, 
 
 ## Risques principaux et mitigation
 
-- **Risque** : saturation des ressources Pi → **Action** : monitoring CPU/RAM/disque + optimisation plugins
-- **Risque** : perte de données → **Action** : règle 3‑2‑1 + test de restauration mensuel
-- **Risque** : complexité outil → **Action** : standardiser les workflows et limiter les extensions
+- **Risque** : divergence d’architecture (Next.js vs WordPress) → **Action** : traiter la Phase 0 avant tout développement métier.
+- **Risque** : saturation des ressources Pi → **Action** : monitoring CPU/RAM/disque + optimisation plugins/services.
+- **Risque** : perte de données → **Action** : règle 3‑2‑1 + test de restauration mensuel.
+- **Risque** : complexité outil → **Action** : standardiser les workflows et limiter les extensions.
