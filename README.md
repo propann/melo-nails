@@ -46,8 +46,7 @@ melo-nails/
 ## Démarrage local
 
 ```bash
-npm install
-npm run dev
+docker compose --profile next up -d --build
 ```
 
 Build production :
