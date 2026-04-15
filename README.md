@@ -1,98 +1,70 @@
-# 💅 Melo Nails — Plateforme auto-hébergée (Raspberry Pi + Docker)
+# Melo Nails — Site vitrine & e-commerce (Next.js)
 
-Projet de plateforme pour une activité de prothésie ongulaire / esthétique, avec un déploiement ciblé sur **Raspberry Pi 5**.
+Socle applicatif moderne pour **Melo Nails**, pensé pour être auto-hébergé sur **Raspberry Pi 5** via Docker.
 
-## Pourquoi ce dépôt ?
+## Stack retenue
 
-Objectif : disposer d'une base propre pour lancer rapidement une plateforme locale/auto-hébergée avec :
+- **Framework** : Next.js (App Router) + TypeScript
+- **UI** : Tailwind CSS v4
+- **Animations** : Framer Motion
+- **Icônes** : Lucide React
+- **Containerisation** : Docker multi-stage (ARM64 friendly)
 
-- une vitrine moderne,
-- un socle Docker exploitable,
-- une base documentaire claire pour l'installation et l'exploitation.
+## État d’avancement (2026-04-10)
 
----
+- ✅ Architecture validée sur Next.js
+- ✅ Home premium mobile-first livrée
+- ⏳ MVP Réservation en préparation
+- ⏳ E-commerce + back-office à implémenter
 
-## État actuel (analyse du dépôt)
+## Expérience visuelle
 
-Le dépôt contient **deux pistes techniques** :
+La home est conçue en mode **mobile-first** avec une direction artistique premium :
 
-1. **Piste principale recommandée : Next.js**
-   - code dans `app/`
-   - Dockerfile de build/production déjà présent
-2. **Piste alternative : WordPress + MariaDB**
-   - disponible via Docker Compose pour validation métier rapide
+- Hero plein écran avec CTA vibrant
+- Cartes prestations en glassmorphism
+- Galerie asymétrique type Pinterest
+- Section “La Créatrice”
+- Footer orienté conversion (contact + prise de RDV)
 
-Pour éviter la confusion, le `docker-compose.yml` est maintenant organisé par **profils** :
+## Structure du projet
 
-- `next` (recommandé)
-- `wordpress` (alternative)
-
----
-
-## Stack technique
-
-### Application
-- Next.js 15 (App Router)
-- React 19
-- Tailwind CSS v4
-- Framer Motion
-
-### Infrastructure Docker
-- Nginx Proxy Manager (reverse proxy + TLS)
-- App Next.js (profil `next`)
-- WordPress + MariaDB (profil `wordpress`)
-
----
-
-## Démarrage rapide
-
-```bash
-git clone <URL_DU_DEPOT> melo-nails
-cd melo-nails
-cp .env.example .env
+```text
+melo-nails/
+├─ app/
+│  ├─ globals.css
+│  ├─ layout.tsx
+│  └─ page.tsx
+├─ docs/
+│  ├─ ROADMAP.md
+│  └─ SUIVI_TACHES.md
+├─ Dockerfile
+├─ docker-compose.yml
+└─ package.json
 ```
 
-### Lancer la piste Next.js (recommandée)
+## Démarrage local
 
 ```bash
 docker compose --profile next up -d --build
 ```
 
-### Lancer la piste WordPress (alternative)
+Build production :
 
 ```bash
-docker compose --profile wordpress up -d
+npm run lint
+npm run build
+npm run start
 ```
 
-Interface Nginx Proxy Manager :
-- `http://<IP_DU_PI>:81`
-
----
-
-## Documentation
-
-- **Guide complet Raspberry Pi** : [`docs/INSTALLATION_RASPBERRY_PI.md`](docs/INSTALLATION_RASPBERRY_PI.md)
-- Feuille de route : [`docs/ROADMAP.md`](docs/ROADMAP.md)
-- Suivi des tâches : [`docs/SUIVI_TACHES.md`](docs/SUIVI_TACHES.md)
-
----
-
-## Commandes utiles
+## Docker (production)
 
 ```bash
-# État des conteneurs
-docker compose ps
-
-# Logs
-docker compose logs -f --tail=200
-
-# Redéploiement Next.js après update
-git pull
-docker compose --profile next up -d --build
+docker build -t melo-nails:latest .
+docker run --rm -p 3000:3000 melo-nails:latest
 ```
 
----
+## Documentation de pilotage
 
-## Recommandation d'architecture
-
-Pour ce dépôt, la trajectoire la plus cohérente est de **prioriser Next.js** puis d'ajouter progressivement les modules métier (réservation, CRM, facturation, stock). La piste WordPress reste disponible comme solution temporaire de comparaison.
+- Roadmap projet : [`docs/ROADMAP.md`](docs/ROADMAP.md)
+- Suivi opérationnel : [`docs/SUIVI_TACHES.md`](docs/SUIVI_TACHES.md)
